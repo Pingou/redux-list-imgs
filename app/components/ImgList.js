@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { itemsSelectImg } from "../actions/items";
 import ImgThumbnail from "./ImgThumbnail";
-import styles from "../styles/imgList"
+import styles from "../styles/imgList";
+
+
 import {
     Text,
     View,
@@ -15,12 +17,6 @@ import {
 } from "react-native";
 
 class ImgList extends Component {
-    getImgWidth() {
-        Dimensions.get("window");
-    }
-
-    getNbColumn() {}
-
     renderItem(item) {
         return (
             <ImgThumbnail
@@ -29,7 +25,9 @@ class ImgList extends Component {
             />
         );
     }
+
     render() {
+
         if (this.props.hasErrored) {
             return <Text>error</Text>;
         }
@@ -43,7 +41,7 @@ class ImgList extends Component {
                 style={styles.container}
                 data={this.props.items}
                 extraData={this.state}
-                numColumns={1}
+                numColumns={this.props.nbColumns}
                 keyExtractor={(item, index) => "thumb_" + item.id}
                 renderItem={item => this.renderItem(item.item)}
             />

@@ -18,7 +18,7 @@ class ImgsDetails extends Component {
     constructor(props) {
         super(props);
 
-        this.selectedImg = this.props.navigation.state.params;
+        this._selectedImg = this.props.navigation.state.params;
     }
 
     render() {
@@ -27,17 +27,17 @@ class ImgsDetails extends Component {
                 <Image
                     resizeMode="contain"
                     style={{ flex: 1 }}
-                    source={{ uri: this.selectedImg.url }}
+                    source={{ uri: this._selectedImg.url }}
                 />
 
                 <View style={styles.commentContainer}>
                     <TextInput
                         style={styles.textInput}
                         onChangeText={text => this.text = text}
-                        value={this.selectedImg.comment}
+                        value={this._selectedImg.comment}
                     />
 
-                    <Button text={'ok'} style={styles.button} onPress={() => this.props.setComment({id: this.selectedImg.id, comment:this.text})}/>
+                    <Button text={'ok'} style={styles.button} onPress={() => this.props.setComment({id: this._selectedImg.id, comment:this.text})}/>
                 </View>
             </View>
         );
