@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
+import styles from "../styles/button"
 import {
     Text,
     View,
@@ -16,7 +16,7 @@ class Button extends Component {
 
     render() {
         return (
-            <TouchableOpacity style={[{ flex: 1 }, this.props.style]} onPress={() => this.props.onPress()}>
+            <TouchableOpacity style={[styles.button, this.props.style]} onPress={() => this.props.onPress()}>
                 <Text>{this.props.text}</Text>
             </TouchableOpacity>
         );

@@ -2,31 +2,32 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { itemsSelectImg } from "../actions/items";
 import ImgThumbnail from "./ImgThumbnail";
-
-
-import { Text, View, StyleSheet, ActivityIndicator, TouchableOpacity, Image, FlatList, Dimensions} from "react-native";
-
-
+import styles from "../styles/imgList"
+import {
+    Text,
+    View,
+    StyleSheet,
+    ActivityIndicator,
+    TouchableOpacity,
+    Image,
+    FlatList,
+    Dimensions
+} from "react-native";
 
 class ImgList extends Component {
-
-
-
     getImgWidth() {
-        Dimensions.get('window');
+        Dimensions.get("window");
     }
 
-    getNbColumn() {
-
-    }
+    getNbColumn() {}
 
     renderItem(item) {
         return (
-                <ImgThumbnail
-                        url={item.url}
-                        onPress={() => this.props.onImgSelected(item)}
-                    />
-            )
+            <ImgThumbnail
+                url={item.url}
+                onPress={() => this.props.onImgSelected(item)}
+            />
+        );
     }
     render() {
         if (this.props.hasErrored) {
@@ -34,17 +35,17 @@ class ImgList extends Component {
         }
 
         if (this.props.isLoading) {
-            return <ActivityIndicator/>;
+            return <ActivityIndicator />;
         }
 
         return (
-           <FlatList
-              style={{width:"100%", height:"100%"}}
-              data={this.props.items}
-              extraData={this.state}
-              numColumns={1}
-              keyExtractor={(item, index) => "thumb_" + item.id}
-              renderItem={item => this.renderItem(item.item)}
+            <FlatList
+                style={styles.container}
+                data={this.props.items}
+                extraData={this.state}
+                numColumns={1}
+                keyExtractor={(item, index) => "thumb_" + item.id}
+                renderItem={item => this.renderItem(item.item)}
             />
         );
     }

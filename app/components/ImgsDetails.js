@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Button from "./Button";
 import { itemsSetComment } from "../actions/items"
+import styles from "../styles/imgsDetails"
+
 import {
     Text,
     View,
@@ -21,26 +23,21 @@ class ImgsDetails extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <View style={styles.container}>
                 <Image
                     resizeMode="contain"
                     style={{ flex: 1 }}
                     source={{ uri: this.selectedImg.url }}
                 />
 
-                <View style={{ flexDirection: "row" }}>
+                <View style={styles.commentContainer}>
                     <TextInput
-                        style={{
-                            flex:1,
-                            height: 100,
-                            borderColor: "gray",
-                            borderWidth: 1
-                        }}
+                        style={styles.textInput}
                         onChangeText={text => this.text = text}
                         value={this.selectedImg.comment}
                     />
 
-                    <Button text={'ok'} onPress={() => this.props.setComment({id: this.selectedImg.id, comment:this.text})}/>
+                    <Button text={'ok'} style={styles.button} onPress={() => this.props.setComment({id: this.selectedImg.id, comment:this.text})}/>
                 </View>
             </View>
         );
