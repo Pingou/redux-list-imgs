@@ -1,0 +1,69 @@
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { itemsSelectImg } from "../actions/items";
+import ImgThumbnail from "./ImgThumbnail";
+
+
+import { Text, View, StyleSheet, ActivityIndicator, TouchableOpacity, Image, FlatList, Dimensions} from "react-native";
+
+
+
+class ImgList extends Component {
+
+
+
+    getImgWidth() {
+        Dimensions.get('window');
+    }
+
+    getNbColumn() {
+
+    }
+
+    renderItem(item) {
+        return (
+                <ImgThumbnail
+                        url={item.url}
+                        onPress={() => this.props.onImgSelected(item)}
+                    />
+            )
+    }
+    render() {
+        if (this.props.hasErrored) {
+            return <Text>error</Text>;
+        }
+
+        if (this.props.isLoading) {
+            return <ActivityIndicator/>;
+        }
+
+        return (
+           <FlatList
+              style={{width:"100%", height:"100%"}}
+              data={this.props.items}
+              extraData={this.state}
+              numColumns={1}
+              keyExtractor={(item, index) => "thumb_" + item.id}
+              renderItem={item => this.renderItem(item.item)}
+            />
+        );
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        items: state.items,
+        hasErrored: state.itemsHasErrored,
+        isLoading: state.itemsIsLoading
+    };
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        showImg: img => dispatch(itemsSelectImg(img))
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ImgList);
